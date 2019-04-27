@@ -142,6 +142,9 @@ app.delete('/:username/:password/pois/:id', function(req, res) {
 //User
 
 app.get('/pois', function(req, res) {
+
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
   const _id = req.params.id
   //POI.find( { type: { $ne: "account" } } ).then(function(poi) {
   POI.find().then(function(poi) {
