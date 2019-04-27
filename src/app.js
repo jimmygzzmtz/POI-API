@@ -54,6 +54,8 @@ app.get('/:username/:password/pois/:id', function(req, res) {
   
   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
     
+    res.setHeader('Access-Control-Allow-Origin', '*')
+
     if(!account){
       return res.status(404).send()
     }
@@ -84,6 +86,9 @@ app.get('/:username/:password/pois/:id', function(req, res) {
 app.patch('/:username/:password/pois/:id', function(req, res) {
   
   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
+    
+    res.setHeader('Access-Control-Allow-Origin', '*')
+
     if(!account){
       return res.status(404).send()
     }
@@ -113,6 +118,9 @@ app.patch('/:username/:password/pois/:id', function(req, res) {
 app.delete('/:username/:password/pois/:id', function(req, res) {
   
   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
+    
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    
     if(!account){
       return res.status(404).send()
     }
@@ -158,6 +166,9 @@ app.get('/pois', function(req, res) {
 })
 
 app.get('/pois/location/:location', function(req, res) {
+  
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  
   POI.find({ location: req.params.location}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
@@ -169,6 +180,9 @@ app.get('/pois/location/:location', function(req, res) {
 })
 
 app.get('/pois/location/:location/type/:type', function(req, res) {
+  
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  
   POI.find({ location: req.params.location, type: req.params.type}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
@@ -180,6 +194,9 @@ app.get('/pois/location/:location/type/:type', function(req, res) {
 })
 
 app.get('/pois/type/:type', function(req, res) {
+  
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  
   POI.find({type: req.params.type}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
