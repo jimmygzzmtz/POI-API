@@ -21,6 +21,12 @@ app.use(express.json())
 
 //Admin
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.post('/:username/:password/pois', function(req, res){
   
   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
