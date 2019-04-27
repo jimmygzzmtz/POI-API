@@ -25,6 +25,8 @@ app.post('/:username/:password/pois', function(req, res){
   
   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
 
+    res.setHeader('Access-Control-Allow-Origin', '*')
+
     if(!account){
       return res.status(404).send()
     }
