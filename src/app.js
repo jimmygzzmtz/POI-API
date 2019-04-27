@@ -22,6 +22,7 @@ app.use(express.json())
 //Admin
 
 app.use(function(req, res, next) {
+  headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
