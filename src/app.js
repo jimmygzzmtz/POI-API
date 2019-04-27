@@ -1,4 +1,13 @@
 const express = require('express')
+const cors = require('cors');
+
+const allowedOrigins = [
+  'capacitor://localhost',
+  'ionic://localhost',
+  'http://localhost',
+  'http://localhost:8080',
+  'http://localhost:8100'
+];
 
 require('./db/mongoose')
 const POI = require('./models/POIs')
