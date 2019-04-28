@@ -131,7 +131,7 @@ app.delete('/:username/:password/pois/:id', function(req, res) {
     }
 
     const _id = req.params.id
-    POI.findOneAndDelete(_id).then(function(poi) {
+    POI.findOneAndDelete({_id: _id}).then(function(poi) {
       if(!poi){
         return res.status(404).send()
       }
