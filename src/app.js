@@ -180,7 +180,7 @@ app.get('/pois/location/:location', function(req, res) {
   
   
   
- POI.find({ location: /${req.params.location}/i}).then(function(poi) {
+ POI.find({ location: '/' + req.params.location + '/i'}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
     }
