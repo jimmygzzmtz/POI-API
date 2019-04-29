@@ -184,11 +184,12 @@ app.get('/pois/location/:location', function(req, res) {
   }).catch(function(error) {
     return res.status(500).send(error)
   })
+  */
 
   function findName(poi){
     return poi.location.toLowerCase() == req.params.locationtoLowerCase()
   }
-  */
+  
 
 
 })
