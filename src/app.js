@@ -164,7 +164,7 @@ app.get('/pois', function(req, res) {
 
 app.get('/pois/location/:location', function(req, res) {
 
-  
+  /*
     POI.find({ location: req.params.location}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
@@ -173,9 +173,9 @@ app.get('/pois/location/:location', function(req, res) {
     }).catch(function(error) {
       return res.status(500).send(error)
     })
+  */
   
   
-  /*
   POI.find(findName).then(function(poi) {
     if(!poi){
       return res.status(404).send()
@@ -188,7 +188,6 @@ app.get('/pois/location/:location', function(req, res) {
   function findName(poi){
     return poi.location.toLowerCase() == req.params.locationtoLowerCase()
   }
-  */
 
 
 })
