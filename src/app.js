@@ -163,20 +163,6 @@ app.get('/pois', function(req, res) {
 })
 
 app.get('/pois/location/:location', function(req, res) {
-
-  
-  
-  /*
-    POI.find({ location: req.params.location}).then(function(poi) {
-    if(!poi){
-      return res.status(404).send()
-    }
-    return res.send(poi)
-    }).catch(function(error) {
-      return res.status(500).send(error)
-    })
-  */
-  
   
  POI.find({ location: new RegExp("^" + req.params.location.toLowerCase(), "i")}).then(function(poi) {
     if(!poi){
@@ -194,7 +180,7 @@ app.get('/pois/location/:location', function(req, res) {
 
 app.get('/pois/location/:location/type/:type', function(req, res) {
   
-  POI.find({ location: req.params.location, type: req.params.type}).then(function(poi) {
+  POI.find({ location: new RegExp("^" + req.params.location.toLowerCase(), "i"), type: new RegExp("^" + req.params.type.toLowerCase(), "i")}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
     }
@@ -206,7 +192,7 @@ app.get('/pois/location/:location/type/:type', function(req, res) {
 
 app.get('/pois/type/:type', function(req, res) {
   
-  POI.find({type: req.params.type}).then(function(poi) {
+  POI.find({type: new RegExp("^" + req.params.type.toLowerCase(), "i")}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
     }
