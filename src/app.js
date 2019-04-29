@@ -163,8 +163,19 @@ app.get('/pois', function(req, res) {
 })
 
 app.get('/pois/location/:location', function(req, res) {
+
+  /*
+    POI.find({ location: req.params.location}).then(function(poi) {
+    if(!poi){
+      return res.status(404).send()
+    }
+    return res.send(poi)
+    }).catch(function(error) {
+      return res.status(500).send(error)
+    })
+  */
   
-  POI.find({ location: req.params.location}).then(function(poi) {
+  POI.find(findName).then(function(poi) {
     if(!poi){
       return res.status(404).send()
     }
@@ -172,6 +183,12 @@ app.get('/pois/location/:location', function(req, res) {
   }).catch(function(error) {
     return res.status(500).send(error)
   })
+
+  function findName(poi){
+    return poi.location.toLowerCase() == req.params.locationtoLowerCase()
+  }
+
+
 })
 
 app.get('/pois/location/:location/type/:type', function(req, res) {
