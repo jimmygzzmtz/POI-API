@@ -1,8 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const cors = require('cors');
 
 const controller = require('./controllers/pois.js')
 // const auth = require('./middleware/auth')
+
+router.all('*', cors());
 
 router.post('/:username/:password/pois', controller.getPois)
 router.get('/:username/:password/pois/:id', controller.getPoi)
