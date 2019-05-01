@@ -27,7 +27,7 @@ const getPois = function(req, res) {
 }
 
 const getPoi = function(req, res) {
-  
+
   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
 
     if(!account){
