@@ -1,5 +1,5 @@
-const POI = require('./models/POIs')
-const Account = require('./models/Accounts')
+const POI = require('../models/POIs')
+const Account = require('../models/Accounts')
 
 const getPois = function(req, res) {
   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
@@ -117,7 +117,7 @@ const deletePoi = function(req, res) {
 }
 
 
-const getAllPois = app.get('/pois', function(req, res) {
+const getAllPois = function(req, res) {
 
   const _id = req.params.id
   //POI.find( { type: { $ne: "account" } } ).then(function(poi) {
@@ -129,7 +129,7 @@ const getAllPois = app.get('/pois', function(req, res) {
   }).catch(function(error) {
     return res.status(500).send(error)
   })
-})
+}
 
 const getLocation = function(req, res) {
   
