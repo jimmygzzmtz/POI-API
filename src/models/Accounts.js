@@ -18,18 +18,63 @@ const accountSchema = new mongoose.Schema({
   },
   password: {
     type: String
+  }, 
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate(value) {
+      if(!validator.isEmail(value)) {
+        throw new Error('Email invalido')
+      }
+    }
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  tokens: [{
+    token: {
+      type: String,
+      required: true
+    }
+  }]
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
   }
 })
 
-accountSchema.statics.findByCredentials = function(username, password) {
+// una relacion entre dos Schemas, no lo guarda, es virtual 
+accountSchema.virtual('todos', {
+  ref: 'Todo',
+  localField: '_id',
+  foreignField: 'createdBy'
+})
+
+accountSchema.methods.toJSON = function() {
+  const account = this
+  const obj = account.toObject()
+
+  delete obj.password
+  delete obj.tokens
+
+  return obj
+}
+
+accountSchema.statics.findByCredentials = function(email, password) {
   return new Promise( function(resolve, reject) {
-    Account.findOne({ username }).then(function(user) {
-      if( !user ) {
-        return reject('User does not exist')
+    Account.findOne({ email }).then(function(account) {
+      if( !account ) {
+        return reject('Account does not exist')
       }
-      bcrypt.compare(password, user.password).then(function(match) {
+      bcrypt.compare(password, account.password).then(function(match) {
         if(match) {
-          return resolve(user)
+          return resolve(account)
         } else {
           return reject('Wrong password!')
         }
@@ -41,11 +86,11 @@ accountSchema.statics.findByCredentials = function(username, password) {
 }
 
 accountSchema.methods.generateToken = function() {
-  const user = this
-  const token = jwt.sign({ _id: user._id.toString() }, 'superSecret', { expiresIn: '7 days'})
-  user.tokens = user.tokens.concat({ token })
+  const account = this
+  const token = jwt.sign({ _id: account._id.toString() }, 'superSecret', { expiresIn: '7 days'})
+  account.tokens = account.tokens.concat({ token })
   return new Promise(function( resolve, reject) {
-    user.save().then(function(user){
+    account.save().then(function(account){
       return resolve(token)
     }).catch(function(error) {
       return reject(error)
@@ -54,10 +99,10 @@ accountSchema.methods.generateToken = function() {
 }
 
 accountSchema.pre('save', function(next) {
-  const user = this
-  if( user.isModified('password') ) {
-    bcrypt.hash(user.password, 8).then(function(hash){
-      user.password = hash
+  const account = this
+  if( account.isModified('password') ) {
+    bcrypt.hash(account.password, 8).then(function(hash){
+      account.password = hash
       next()
     }).catch(function(error){
       return next(error)
