@@ -14,10 +14,13 @@ const jwt = require('jsonwebtoken')
 
 const accountSchema = new mongoose.Schema({
   username: {
-    type: String
+    type: String,
+    required: true
   },
   password: {
-    type: String
+    type: String,
+    required: true,
+    trim: true
   }, 
   email: {
     type: String,
@@ -28,11 +31,6 @@ const accountSchema = new mongoose.Schema({
         throw new Error('Email invalido')
       }
     }
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true
   },
   tokens: [{
     token: {
