@@ -56,16 +56,21 @@ accountSchema.methods.toJSON = function() {
 accountSchema.statics.findByCredentials = function(username, password) {
   return new Promise( function(resolve, reject) {
     Account.findOne({ username }).then(function(account) {
+      console.log("found account")
       if( !account ) {
+        console.log("account does not exist")
         return reject('Account does not exist')
       }
       bcrypt.compare(password, account.password).then(function(match) {
+        console.log("comparing passwords")
         if(match) {
           return resolve(account)
         } else {
+          console.log("wrong passwords in")
           return reject('Wrong password!')
         }
       }).catch( function(error) {
+        console.log("wrong password out")
         return reject('Wrong password!')
       })
     })
