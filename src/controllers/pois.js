@@ -214,6 +214,7 @@ const createAccount = function(req, res) {
 }
 
 const login = function(req, res) {
+  console.log("will start find")
   Account.findByCredentials(req.body.username, req.body.password).then(function(account) {
     console.log("started login")
     account.generateToken().then(function(token) {
