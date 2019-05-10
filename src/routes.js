@@ -22,7 +22,8 @@ router.patch('/pois/:id', auth, controller.createPoi)
 router.delete('/pois/:id', auth, controller.deletePoi)
 
 router.post('/accounts/login', controller.login)
-router.post('/users/logout', auth, controller.logout)
+router.post('/accounts/logout', auth, controller.logout)
+router.post('/accounts', controller.createAccount)  // signup
 
 router.get('/pois',controller.getAllPois)
 router.get('/pois/location/:location', controller.getLocation)

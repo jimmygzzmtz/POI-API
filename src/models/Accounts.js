@@ -66,9 +66,9 @@ accountSchema.methods.toJSON = function() {
   return obj
 }
 
-accountSchema.statics.findByCredentials = function(email, password) {
+accountSchema.statics.findByCredentials = function(username, password) {
   return new Promise( function(resolve, reject) {
-    Account.findOne({ email }).then(function(account) {
+    Account.findOne({ username }).then(function(account) {
       if( !account ) {
         return reject('Account does not exist')
       }

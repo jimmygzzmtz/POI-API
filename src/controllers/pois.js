@@ -205,7 +205,7 @@ const getType = function(req, res) {
 }
 
 const createAccount = function(req, res) {
-  const  account = new Account(req.body)
+  const account = new Account(req.body)
   account.save().then(function() {
     return res.send(account)
   }).catch(function(error) {
