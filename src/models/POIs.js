@@ -12,6 +12,9 @@ const POIs = mongoose.model('POIs', {
   },
   description: {
     type: String
+  },
+  image: {
+    type: String
   }
 })
 
