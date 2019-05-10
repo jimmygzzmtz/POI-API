@@ -7,16 +7,20 @@ const auth = require('./middleware/auth')
 
 router.all('*', cors());
 
+/*
 router.post('/:username/:password/pois', controller.getPois)
 router.get('/:username/:password/pois/:id', controller.getPoi)
 router.patch('/:username/:password/pois/:id', controller.createPoi)
 router.delete('/:username/:password/pois/:id', controller.deletePoi)
+*/
 
 // functions that require auth middleware
-// router.post('/pois', auth, controller.getPois)
-// router.get('/pois/:id', auth, controller.getPoi)
-// router.patch('/pois/:id', auth, controller.createPoi)
-// router.delete('/pois/:id', auth, controller.deletePoi)
+
+router.post('/pois', auth, controller.getPois)
+router.get('/pois/:id', auth, controller.getPoi)
+router.patch('/pois/:id', auth, controller.createPoi)
+router.delete('/pois/:id', auth, controller.deletePoi)
+
 
 router.get('/pois',controller.getAllPois)
 router.get('/pois/location/:location', controller.getLocation)
