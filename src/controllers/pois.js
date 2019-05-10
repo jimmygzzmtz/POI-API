@@ -26,8 +26,16 @@ const Account = require('../models/Accounts')
 
 // }
 
-const getPois = function(req, res) {
-  const poi = new POI(req.body)
+const createPoi = function(req, res) {
+  //const poi = new POI(req.body)
+  const poi = new POI({
+    name: req.body.name,
+    location: req.body.location,
+    type: req.body.type,
+    description: req.body.description,
+    image: req.body.image,
+    createdBy: req.user._id
+  })
   poi.save().then(function() {
     return res.send(poi)
   }).catch(function(error) {
@@ -104,7 +112,7 @@ const getPoi = function(req, res) {
   
 // }
 
-const createPoi = function(req, res) {
+const updatePoi = function(req, res) {
   const _id = req.params.id;
     POI.findOneAndUpdate({_id: _id}, req.body).then(function(poi) {
       if(!poi) {
@@ -214,11 +222,8 @@ const createAccount = function(req, res) {
 }
 
 const login = function(req, res) {
-  console.log("will start find")
   Account.findByCredentials(req.body.username, req.body.password).then(function(account) {
-    console.log("started login")
     account.generateToken().then(function(token) {
-      console.log("generated token")
       return res.send({account, token})
     }).catch(function(error) {
       return res.status(401).send({error: error})
@@ -240,9 +245,9 @@ const logout = function(req, res) {
 }
 
 module.exports = {
-    getPois: getPois,
-    getPoi: getPoi,
     createPoi: createPoi,
+    getPoi: getPoi,
+    updatePoi: updatePoi,
     deletePoi: deletePoi,
     getAllPois: getAllPois,
     getLocation: getLocation,

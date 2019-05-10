@@ -54,25 +54,18 @@ accountSchema.methods.toJSON = function() {
 }
 
 accountSchema.statics.findByCredentials = function(username, password) {
-  console.log("entered findbycredentials")
   return new Promise( function(resolve, reject) {
-    console.log("entered promise, " + username + " " + password)
     Accounts.findOne({ username }).then(function(account) {
-      console.log("found account")
       if( !account ) {
-        console.log("account does not exist")
         return reject('Account does not exist')
       }
       bcrypt.compare(password, account.password).then(function(match) {
-        console.log("comparing passwords")
         if(match) {
           return resolve(account)
         } else {
-          console.log("wrong passwords in")
           return reject('Wrong password!')
         }
       }).catch( function(error) {
-        console.log("wrong password out")
         return reject('Wrong password!')
       })
     })
@@ -80,11 +73,9 @@ accountSchema.statics.findByCredentials = function(username, password) {
 }
 
 accountSchema.methods.generateToken = function() {
-  console.log("started token")
   const account = this
   const token = jwt.sign({ _id: account._id.toString() }, 'superSecret', { expiresIn: '7 days'})
   account.tokens = account.tokens.concat({ token })
-  console.log("added token")
   return new Promise(function( resolve, reject) {
     account.save().then(function(account){
       return resolve(token)

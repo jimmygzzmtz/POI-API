@@ -16,9 +16,9 @@ router.delete('/:username/:password/pois/:id', controller.deletePoi)
 
 // functions that require auth middleware
 
-router.post('/pois', auth, controller.getPois)
+router.post('/pois', auth, controller.createPoi)
 router.get('/pois/:id', auth, controller.getPoi)
-router.patch('/pois/:id', auth, controller.createPoi)
+router.patch('/pois/:id', auth, controller.updatePoi)
 router.delete('/pois/:id', auth, controller.deletePoi)
 
 router.post('/accounts/login', controller.login)
