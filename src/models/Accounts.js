@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -74,9 +73,11 @@ accountSchema.statics.findByCredentials = function(username, password) {
 }
 
 accountSchema.methods.generateToken = function() {
+  console.log("started token")
   const account = this
   const token = jwt.sign({ _id: account._id.toString() }, 'superSecret', { expiresIn: '7 days'})
   account.tokens = account.tokens.concat({ token })
+  console.log("added token")
   return new Promise(function( resolve, reject) {
     account.save().then(function(account){
       return resolve(token)

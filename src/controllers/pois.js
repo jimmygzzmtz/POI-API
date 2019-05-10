@@ -215,7 +215,9 @@ const createAccount = function(req, res) {
 
 const login = function(req, res) {
   Account.findByCredentials(req.body.username, req.body.password).then(function(account) {
+    console.log("started login")
     account.generateToken().then(function(token) {
+      console.log("generated token")
       return res.send({account, token})
     }).catch(function(error) {
       return res.status(401).send({error: error})
