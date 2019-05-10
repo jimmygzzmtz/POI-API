@@ -57,7 +57,7 @@ accountSchema.statics.findByCredentials = function(username, password) {
   console.log("entered findbycredentials")
   return new Promise( function(resolve, reject) {
     console.log("entered promise, " + username + " " + password)
-    Account.findOne({ username }).then(function(account) {
+    Account.findOne({ username: username }).then(function(account) {
       console.log("found account")
       if( !account ) {
         console.log("account does not exist")
