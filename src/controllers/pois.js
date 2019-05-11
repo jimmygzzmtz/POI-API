@@ -113,7 +113,19 @@ const getPoi = function(req, res) {
 // }
 
 const updatePoi = function(req, res) {
-  const _id = req.params.id;
+  if(req.account.id == "admin"){
+    const _id = req.params.id;
+    POI.findOneAndUpdate({_id: _id}, req.body).then(function(poi) {
+      if(!poi) {
+        return res.status(404).send()
+      }
+      return res.status(200).send(poi)
+    }).catch(function(error) {
+      return res.status(500).send(error)
+    })
+  }
+  else{
+    const _id = req.params.id;
     POI.findOneAndUpdate({_id: _id, createdBy: req.account.id}, req.body).then(function(poi) {
       if(!poi) {
         return res.status(404).send()
@@ -122,6 +134,8 @@ const updatePoi = function(req, res) {
     }).catch(function(error) {
       return res.status(500).send(error)
     })
+  }
+  
 }
 
 // const deletePoi = function(req, res) {
@@ -154,15 +168,29 @@ const updatePoi = function(req, res) {
 // }
 
 const deletePoi = function(req, res) {
-  const _id = req.params.id
-  POI.findOneAndDelete({_id: _id, createdBy: req.account.id}).then(function(poi) {
-    if(!poi){
-      return res.status(404).send()
-    }
-    return res.send(poi)
-  }).catch(function(error) {
-    return res.status(500).send(error)
-  })
+  if(req.account.id == "admin"){
+    const _id = req.params.id
+    POI.findOneAndDelete({_id: _id}).then(function(poi) {
+      if(!poi){
+        return res.status(404).send()
+      }
+      return res.send(poi)
+    }).catch(function(error) {
+      return res.status(500).send(error)
+    })
+  }
+  else{
+    const _id = req.params.id
+    POI.findOneAndDelete({_id: _id, createdBy: req.account.id}).then(function(poi) {
+      if(!poi){
+        return res.status(404).send()
+      }
+      return res.send(poi)
+    }).catch(function(error) {
+      return res.status(500).send(error)
+    })
+  }
+  
 }
 
 const getAllPois = function(req, res) {
