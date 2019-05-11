@@ -168,6 +168,7 @@ const updatePoi = function(req, res) {
 // }
 
 const deletePoi = function(req, res) {
+  console.log("id of user is " + req.account.id)
   if(req.account.id == "admin"){
     const _id = req.params.id
     POI.findOneAndDelete({_id: _id}).then(function(poi) {
