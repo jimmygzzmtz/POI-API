@@ -34,7 +34,7 @@ const createPoi = function(req, res) {
     type: req.body.type,
     description: req.body.description,
     image: req.body.image,
-    createdBy: req.user._id
+    createdBy: req.account._id
   })
   poi.save().then(function() {
     return res.send(poi)
