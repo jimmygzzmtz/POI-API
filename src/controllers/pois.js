@@ -114,7 +114,7 @@ const getPoi = function(req, res) {
 
 const updatePoi = function(req, res) {
   const _id = req.params.id;
-    POI.findOneAndUpdate({_id: _id}, req.body).then(function(poi) {
+    POI.findOneAndUpdate({_id: _id, createdBy: req.account.id}, req.body).then(function(poi) {
       if(!poi) {
         return res.status(404).send()
       }
@@ -155,7 +155,7 @@ const updatePoi = function(req, res) {
 
 const deletePoi = function(req, res) {
   const _id = req.params.id
-  POI.findOneAndDelete({_id: _id}).then(function(poi) {
+  POI.findOneAndDelete({_id: _id, createdBy: req.account.id}).then(function(poi) {
     if(!poi){
       return res.status(404).send()
     }
