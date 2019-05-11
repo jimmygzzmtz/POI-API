@@ -113,7 +113,7 @@ const getPoi = function(req, res) {
 // }
 
 const updatePoi = function(req, res) {
-  if(req.account.id == "admin"){
+  if(req.account.id == "5cd5fc176c1e940017a32339"){
     const _id = req.params.id;
     POI.findOneAndUpdate({_id: _id}, req.body).then(function(poi) {
       if(!poi) {
@@ -168,8 +168,7 @@ const updatePoi = function(req, res) {
 // }
 
 const deletePoi = function(req, res) {
-  console.log("id of user is " + req.account.id)
-  if(req.account.id == "admin"){
+  if(req.account.id == "5cd5fc176c1e940017a32339"){
     const _id = req.params.id
     POI.findOneAndDelete({_id: _id}).then(function(poi) {
       if(!poi){
