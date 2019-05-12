@@ -19,7 +19,7 @@ router.delete('/:username/:password/pois/:id', controller.deletePoi)
 router.post('/pois', auth, controller.createPoi) // add poi
 router.get('/pois/:id', auth, controller.getPoi) // get poi by id
 router.patch('/pois/:id', auth, controller.updatePoi) // modify poi
-router.delete('/pois/:id', auth, controller.deletePoi) // delte poi
+router.delete('/pois/:id', auth, controller.deletePoi) // delete poi
 
 router.post('/accounts/login', controller.login) // login
 router.post('/accounts/logout', auth, controller.logout) // logout

@@ -16,6 +16,9 @@ const POIs = mongoose.model('POIs', {
   image: {
     type: String
   },
+  maps: {
+    type: String
+  },
   createdBy: {
     type: String
   }
