@@ -1,39 +1,14 @@
 const POI = require('../models/POIs')
 const Account = require('../models/Accounts')
 
-// const getPois = function(req, res) {
-//   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
-//     if(!account){
-//       return res.status(404).send()
-//     }
-
-//     if(account.length == 0){
-//       return res.status(400).send({
-//         error: 'Account not recognized'
-//       })
-//     }
-
-//     const poi = new POI(req.body)
-//     poi.save().then(function() {
-//       return res.send(poi)
-//     }).catch(function(error) {
-//       return res.status(400).send(error)
-//     })
-
-//   }).catch(function(error) {
-//     return res.status(500).send(error)
-//   })
-
-// }
-
 const createPoi = function(req, res) {
-  //const poi = new POI(req.body)
   const poi = new POI({
     name: req.body.name,
     location: req.body.location,
     type: req.body.type,
     description: req.body.description,
     image: req.body.image,
+    maps: req.body.maps,
     createdBy: req.account._id
   })
   poi.save().then(function() {
@@ -42,35 +17,6 @@ const createPoi = function(req, res) {
     return res.status(400).send(error)
   })
 }
-
-// const getPoi = function(req, res) {
-//   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
-
-//     if(!account){
-//       return res.status(404).send()
-//     }
-
-//     if(account.length == 0){
-//       return res.status(400).send({
-//         error: 'Account not recognized'
-//       })
-//     }
-
-//     const _id = req.params.id
-//     POI.findById(_id).then(function(poi) {
-//       if(!poi){
-//         return res.status(404).send()
-//       }
-//       return res.send(poi)
-//     }).catch(function(error) {
-//       return res.status(500).send(error)
-//     })
-
-//   }).catch(function(error) {
-//     return res.status(500).send(error)
-//   })
-  
-// }
 
 const getPoi = function(req, res) {
   const _id = req.params.id
@@ -83,34 +29,6 @@ const getPoi = function(req, res) {
       return res.status(500).send(error)
     })
 }
-
-// const createPoi = function(req, res) {
-//   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
-//     if(!account){
-//       return res.status(404).send()
-//     }
-
-//     if(account.length == 0){
-//       return res.status(400).send({
-//         error: 'Account not recognized'
-//       })
-//     }
-
-//     const _id = req.params.id;
-//     POI.findOneAndUpdate({_id: _id}, req.body).then(function(poi) {
-//       if(!poi) {
-//         return res.status(404).send()
-//       }
-//       return res.status(200).send(poi)
-//     }).catch(function(error) {
-//       return res.status(500).send(error)
-//     })
-
-//   }).catch(function(error) {
-//     return res.status(500).send(error)
-//   })
-  
-// }
 
 const updatePoi = function(req, res) {
   if(req.account.id == "5cd5fc176c1e940017a32339"){
@@ -137,35 +55,6 @@ const updatePoi = function(req, res) {
   }
   
 }
-
-// const deletePoi = function(req, res) {
-//   Account.find({ username: req.params.username, password: req.params.password}).then(function(account) {
-    
-//     if(!account){
-//       return res.status(404).send()
-//     }
-
-//     if(account.length == 0){
-//       return res.status(400).send({
-//         error: 'Account not recognized'
-//       })
-//     }
-
-//     const _id = req.params.id
-//     POI.findOneAndDelete({_id: _id}).then(function(poi) {
-//       if(!poi){
-//         return res.status(404).send()
-//       }
-//       return res.send(poi)
-//     }).catch(function(error) {
-//       return res.status(500).send(error)
-//     })
-
-//   }).catch(function(error) {
-//     return res.status(500).send(error)
-//   })
-
-// }
 
 const deletePoi = function(req, res) {
   if(req.account.id == "5cd5fc176c1e940017a32339"){
@@ -195,7 +84,6 @@ const deletePoi = function(req, res) {
 
 const getAllPois = function(req, res) {
   const _id = req.params.id
-  //POI.find( { type: { $ne: "account" } } ).then(function(poi) {
   POI.find().then(function(poi) {
     if(!poi){
       return res.status(404).send()

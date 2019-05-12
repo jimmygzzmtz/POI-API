@@ -2,15 +2,6 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-// const Accounts = mongoose.model('Accounts', {
-//   username: {
-//     type: String
-//   },
-//   password: {
-//     type: String
-//   }
-// })
-
 const accountSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -36,7 +27,6 @@ const accountSchema = new mongoose.Schema({
   }
 })
 
-// una relacion entre dos Schemas, no lo guarda, es virtual 
 accountSchema.virtual('todos', {
   ref: 'Todo',
   localField: '_id',
